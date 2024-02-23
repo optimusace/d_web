@@ -1,0 +1,310 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+}
+.content-header{
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+.content-form{
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 1150px;
+    margin: 0px auto 40px;
+    padding: 20px;
+    background-color: rgb(252, 252, 252);
+}
+.content-title-container{
+    background-color: gainsboro;
+    height: 2px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.content-title{
+    background-color: rgb(252, 252, 252);
+    font-size: 20px;
+    margin-left: 30px;
+    padding: 10px;
+}
+input,textarea{
+    outline: none;
+    font-size: 16px;
+    font-family: sans-serif;
+    padding: 5px;
+    border: 1px solid gainsboro;
+    transition: border 0.3s;
+}
+input:focus,textarea:focus{
+    border: 1px solid gray;
+}
+textarea:focus{
+    border: 1px solid gray;
+}
+textarea{
+    resize: vertical;
+    width: 1100px;
+    min-height: 50px;
+    margin: 5px auto 20px;
+}
+.content-name-link{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.content-name-link div label{
+    margin-right: 10px;
+}
+.menu-contents{
+    width: 1100px;
+    margin: 0px auto;
+}
+.menu-contents-title{
+    font-size: 28px;
+    text-align: center;
+    margin: 20px;
+}
+.menu-content{
+    margin: 50px 0px;
+}
+.menu-content label{
+    margin: 0px auto;
+}
+.page-location input{
+    width: 1100px;
+    margin: 5px auto 20px;
+}
+
+/* CSS FOR 'Add more content' BUTTON */
+.button{
+    display: flex;
+    justify-content: center;
+} 
+#add-more-main-content{
+    height: 40px;
+    width: 200px;
+    outline: none;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(78, 78, 104);
+    color: white;
+    border-radius: 10px;
+    transition: width 0.3s;
+}
+#add-more-main-content:hover{
+    width: 300px;
+}
+
+
+/* CSS FOR IMAGE SELECTION FOR MENU AND CONTENTS */
+.images{
+    width: 1100px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.image{
+    width: 180px;
+    height: 242px;
+    margin:0px 20px 20px 0px;
+}
+.image .image-select{
+    cursor: pointer;
+    height: 150px;
+    width: 170px;
+    overflow: hidden;
+    border: 2px dashed gray;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.image .image-select input{
+    display: none;
+}
+.image .image-select img{
+    /* width: 170px;
+    height: 150px; */   
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: transform 0.5s ease;
+}
+.image .image-select img:hover{
+    transform: scale(1.1);
+}
+.image .image-select i{
+    color: gray;
+    width: 150px;
+    font-size: 80px;
+    text-align: center;
+    margin: 0px;
+}
+.image .image-select p{
+    margin: 0px;
+}
+.image .image-description-title{
+    margin: 5px 10px 0px;
+    font-size: 12px;
+}
+.image textarea{
+    width: 164px;
+    resize:none;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-left: 2px;
+}
+
+/* CSS FOR ADD MORE IMAGE ICON */
+.add-more-main-image,.add-more-sub-image{
+    width: 160px;
+    height: 234px;
+    border-radius: 10px;
+    border: 3px dotted gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.add-more-main-image,.add-more-sub-image i{
+    color: gray;
+    font-size: 100px;
+}
+
+
+/* CSS RELATED TO SUB-MENUS */
+
+.sub-menus{
+    width: 1100px;
+    margin: 50px auto 20px;
+}
+.sub-menus-title{
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+}
+.sub-menu-title-container{
+    background-color: gainsboro;
+    height: 2px;
+    margin: 30px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.sub-menu-title-container p,.sub-menu-title-container i{
+    padding: 0px 20px;
+    background-color: rgb(252, 252, 252);
+    margin-left: 30px;
+    font-size: 20px;
+}
+.sub-menu-title-container i{
+    cursor: pointer;
+    border: 1px solid gainsboro;
+    border-radius: 50%;
+    transition: background-color 0.1s;
+}
+.sub-menu-title-container i:hover{
+    background-color: gray;
+    color: white;
+}
+.rotate-i{
+    transform: rotate(180deg);
+}
+.sub-menu-hide{
+    display: none;
+}
+.sub-menu-title-link{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.sub-menu-title-link input{
+    width: 250px;
+}
+
+.sub-menu-contents{
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    padding: 20px;
+    width: 1050px;
+    margin: 30px auto 100px;
+}
+.sub-menu-contents-title{
+    font-size: 25px;
+    text-align: center;
+}
+.sub-menu-content{
+    width: 1000px;
+    margin: 50px auto ;
+
+}
+.sub-menu-contents textarea, .sub-menu-contents input{
+    width: 988px;
+}
+.image textarea{
+    width: 164px;
+    resize:none;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-left: 2px;
+}
+.add-more-submenu-content{
+    height: 35px;
+    width: 150px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: width 0.3s;
+}
+.add-more-submenu-content:hover{
+    width: 200px;
+}
+#add-sub-menu{
+    width: 150px;
+    font-size: 16px;
+    margin: 0px auto;
+    text-align: center;
+    border: 2px solid gray;
+    border-radius: 5px;
+    height: 35px;
+    line-height: 35px;
+    transition: width 0.3s;
+    cursor: pointer;
+    user-select: none;
+}
+#add-sub-menu:hover{
+    width: 200px;
+}
+
+/* CREATE MENU BUTTON */
+.submit-btn{
+    margin: 70px 0px 0px;
+    text-align: center;
+}
+input[type="submit"]{
+    border: 2px solid gray;
+    background-color: rgb(252, 252, 252);
+    margin: 0px auto;
+    height: 35px;
+    width: 200px;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+input[type="submit"]:hover{
+    background-color: gainsboro;
+    border-color: grey;
+    width: 250px;
+}
