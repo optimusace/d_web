@@ -12,7 +12,6 @@ const getMenu = async (req,res)=>{
     }catch(err){
         res.status(500).json({success:false,message:"Internal Server Error"})
     }
-
 }
 
 //ADD MENU
@@ -149,8 +148,6 @@ const addMenu = (req,res)=>{
     }
     menuObject["subMenus"] = subMenus
 
-    console.log(menuObject)
-
     //SAVE MENU OBJECT IN THE DATABASE
     Menu.create(menuObject)
     .then((savedMenu)=>{
@@ -163,9 +160,37 @@ const addMenu = (req,res)=>{
     })
 }
 
+//DELETE MENU
+const deleteMenu = async (req,res)=>{
+    try{
+        const id = req.params.id 
+        const deletedMenu = await Menu.findByIdAndDelete(id)
+        if(deletedMenu){
+            return res.status(200).json({success:true})
+        }
+    }catch(err){
+        res.status(500).json({success:false,message:"Internal Server Error"})
+    }
+}
+
+//DELETE SUB MENU
+const deleteSubMenu = async(req,res)=>{
+    try{
+        const menuId = req.params.mainId 
+        const subMenuId = req.params.subMenuId 
+        const deleteStatus = await Menu.updateOne({ _id: menuId },{ $pull: { subMenus: { _id: subMenuId } } })
+        if(deleteStatus){
+            return res.status(200).json({success:true})
+        }
+    }catch(err){
+        res.status(500).json({success:false,message:"Internal Server Error"})
+    }
+}
 
 
 module.exports = {
     getMenu,
-    addMenu
+    addMenu,
+    deleteMenu,
+    deleteSubMenu
 }
