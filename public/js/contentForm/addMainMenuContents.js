@@ -6,8 +6,6 @@ const menuContent = document.getElementsByClassName("menu-content")
 
 addContentBtn.addEventListener("click",(e)=>{
     e.preventDefault()
-
-    console.log(menuContent.length+1)
     
     //content-title-container
     const contenttitle = document.createElement("p")

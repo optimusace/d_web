@@ -10,8 +10,7 @@ function extractNum(string){
 document.body.addEventListener("click",(event)=>{
     const classNames = ["add-more-sub-image","sub-image"]
     if(classNames.some((className)=>{return event.target.classList.contains(className)})){
-        console.log("clicked on add more button")
-        console.log(event.target)
+        
         event.preventDefault()
 
         let subMenuNum = null

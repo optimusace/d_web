@@ -1,30 +1,41 @@
+:root{
+    --color1: #f5f5f5;
+    --color2: gainsboro;
+    --color3: black;
+    --color4: white;
+    --color5: gray;
+    --color6: #b4b4b4;
+}
 body{
     margin: 0px;
-    padding: 0px;
+    padding: 0px 0px 100px;
     font-family: sans-serif;
+    min-width: 775px;
 }
 .content-header{
     font-size: 30px;
     text-align: center;
     font-weight: bold;
+    user-select: none;
 }
 .content-form{
-    border: 1px solid black;
+    border: 1px solid var(--color3);
     border-radius: 5px;
     width: 1150px;
+    width: 85%;
     margin: 0px auto 40px;
     padding: 20px;
-    background-color: rgb(252, 252, 252);
+    background-color: var(--color1);
 }
 .content-title-container{
-    background-color: gainsboro;
+    background-color: var(--color2);
     height: 2px;
     display: flex;
     align-items: center;
     margin-bottom: 30px;
 }
 .content-title{
-    background-color: rgb(252, 252, 252);
+    background-color:var(--color1);
     font-size: 20px;
     margin-left: 30px;
     padding: 10px;
@@ -34,18 +45,18 @@ input,textarea{
     font-size: 16px;
     font-family: sans-serif;
     padding: 5px;
-    border: 1px solid gainsboro;
+    border: 1px solid var(--color2);
     transition: border 0.3s;
 }
 input:focus,textarea:focus{
-    border: 1px solid gray;
+    border: 1px solid var(--color5);
 }
 textarea:focus{
-    border: 1px solid gray;
+    border: 1px solid var(--color5);
 }
 textarea{
     resize: vertical;
-    width: 1100px;
+    width: calc(100% - 11px);
     min-height: 50px;
     margin: 5px auto 20px;
 }
@@ -58,7 +69,7 @@ textarea{
     margin-right: 10px;
 }
 .menu-contents{
-    width: 1100px;
+    width: 95%;
     margin: 0px auto;
 }
 .menu-contents-title{
@@ -73,7 +84,7 @@ textarea{
     margin: 0px auto;
 }
 .page-location input{
-    width: 1100px;
+    width: calc(100% - 11px);
     margin: 5px auto 20px;
 }
 
@@ -84,24 +95,22 @@ textarea{
 } 
 #add-more-main-content{
     height: 40px;
-    width: 200px;
+    width: 150px;
     outline: none;
     font-size: 16px;
     cursor: pointer;
-    border: none;
-    background-color: rgb(78, 78, 104);
-    color: white;
-    border-radius: 10px;
+    border: 2px solid var(--color5);
+    border-radius: 5px;
     transition: width 0.3s;
 }
 #add-more-main-content:hover{
-    width: 300px;
+    width: 200px;
 }
 
 
 /* CSS FOR IMAGE SELECTION FOR MENU AND CONTENTS */
 .images{
-    width: 1100px;
+    width: 100%;
     margin: 10px auto;
     display: flex;
     flex-direction: row;
@@ -117,7 +126,7 @@ textarea{
     height: 150px;
     width: 170px;
     overflow: hidden;
-    border: 2px dashed gray;
+    border: 2px dashed var(--color5);
     border-radius: 10px;
 
     display: flex;
@@ -140,7 +149,7 @@ textarea{
     transform: scale(1.1);
 }
 .image .image-select i{
-    color: gray;
+    color: var(--color5);
     width: 150px;
     font-size: 80px;
     text-align: center;
@@ -166,14 +175,14 @@ textarea{
     width: 160px;
     height: 234px;
     border-radius: 10px;
-    border: 3px dotted gray;
+    border: 3px dotted var(--color5);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
 .add-more-main-image,.add-more-sub-image i{
-    color: gray;
+    color: var(--color5);
     font-size: 100px;
 }
 
@@ -181,7 +190,7 @@ textarea{
 /* CSS RELATED TO SUB-MENUS */
 
 .sub-menus{
-    width: 1100px;
+    width: 95%;
     margin: 50px auto 20px;
 }
 .sub-menus-title{
@@ -191,7 +200,7 @@ textarea{
     margin-bottom: 60px;
 }
 .sub-menu-title-container{
-    background-color: gainsboro;
+    background-color: var(--color2);
     height: 2px;
     margin: 30px 0px;
     display: flex;
@@ -201,19 +210,19 @@ textarea{
 }
 .sub-menu-title-container p,.sub-menu-title-container i{
     padding: 0px 20px;
-    background-color: rgb(252, 252, 252);
+    background-color: var(--color1);
     margin-left: 30px;
     font-size: 20px;
 }
 .sub-menu-title-container i{
     cursor: pointer;
-    border: 1px solid gainsboro;
+    border: 1px solid var(--color2);
     border-radius: 50%;
     transition: background-color 0.1s;
 }
 .sub-menu-title-container i:hover{
-    background-color: gray;
-    color: white;
+    background-color: var(--color5);
+    color: var(--color4);
 }
 .rotate-i{
     transform: rotate(180deg);
@@ -232,10 +241,10 @@ textarea{
 }
 
 .sub-menu-contents{
-    border: 1px solid gainsboro;
+    border: 1px solid var(--color6);
     border-radius: 5px;
-    padding: 20px;
-    width: 1050px;
+    padding: 2%;
+    width: 95%;
     margin: 30px auto 100px;
 }
 .sub-menu-contents-title{
@@ -243,12 +252,12 @@ textarea{
     text-align: center;
 }
 .sub-menu-content{
-    width: 1000px;
-    margin: 50px auto ;
-
+    width: 95%;
+    margin: 50px auto;
 }
 .sub-menu-contents textarea, .sub-menu-contents input{
     width: 988px;
+    width: calc(100% - 11px);
 }
 .image textarea{
     width: 164px;
@@ -260,7 +269,7 @@ textarea{
 .add-more-submenu-content{
     height: 35px;
     width: 150px;
-    border: 2px solid gray;
+    border: 2px solid var(--color5);
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
@@ -275,7 +284,7 @@ textarea{
     font-size: 16px;
     margin: 0px auto;
     text-align: center;
-    border: 2px solid gray;
+    border: 2px solid var(--color5);
     border-radius: 5px;
     height: 35px;
     line-height: 35px;
@@ -289,22 +298,26 @@ textarea{
 
 /* CREATE MENU BUTTON */
 .submit-btn{
-    margin: 70px 0px 0px;
-    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
 }
 input[type="submit"]{
-    border: 2px solid gray;
-    background-color: rgb(252, 252, 252);
-    margin: 0px auto;
-    height: 35px;
+    bottom: 20px;
+    border: 2px solid var(--color5);
+    background-color: var(--color1);
+    height: 45px;
     width: 200px;
     outline: none;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+
+    position: absolute;
+    top: 65px;
 }
 input[type="submit"]:hover{
-    background-color: gainsboro;
-    border-color: grey;
-    width: 250px;
-}
+    background-color: var(--color2);
+    border-color: var(--color5);
+    width: 300px;
+} 

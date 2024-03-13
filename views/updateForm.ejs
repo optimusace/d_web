@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Form</title>
+    
+    <link rel="stylesheet" href="/css/contentForm.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="content">
+        <p class="content-header">Add menu, link and its contents</p>
+        <div class="content-form">
+            <form enctype="multipart/form-data" id="content-form">
+
+                <!-- MAIN MENU NAME AND LINK -->
+                
+                <div class="content-name-link"> 
+                    <div class="name">
+                        <label for="">Menu Name</label>
+                        <% if(menu.name){ %>
+                            <input type="text" name="name" id="menu-name" class="name-input" value="<%= menu.name %>">
+                        <% }else{ %>
+                            <input type="text" name="name" id="menu-name" class="name-input">
+                        <% } %>
+                    </div>
+                    <div class="link">
+                        <label for="">Menu Link</label>
+                        <% if(menu.link){ %>
+                            <input type="text" name="link" id="menu-link" class="link-input" value="<%= menu.link %>">
+                            <% }else{ %>
+                            <input type="text" name="link" id="menu-link" class="link-input">
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- MAIN MENU CONTENTS  -->
+
+
+                <div class="menu-contents" id="menu-contents">
+                    <p class="menu-contents-title">Contents</p>
+
+                    <% menu.contents.forEach((content,index)=>{ %>
+                        <div class="menu-content">
+                            <div class="content-title-container">
+                                <p class="content-title">Content <%= index+1 %></p>
+                            </div>
+                            <div class="heading">
+                                <label for="">Heading</label>
+                                <% if (content.heading) { %>
+                                    <textarea name="main_heading<%= index+1  %>" id=""><%= content.heading %></textarea>
+                                <% } else { %>
+                                    <textarea name="main_heading<%= index+1 %>" id=""></textarea>
+                                <% } %>
+                            </div>
+                            <div class="sub-heading">
+                                <label for="">Sub-Heading</label>
+                                <% if (content.subHeading) { %>
+                                    <textarea name="main_subHeading<%= index+1 %>" id=""><%= content.subHeading %></textarea>
+                                <% } else { %>
+                                    <textarea name="main_subHeading1<%= index+1 %>" id=""></textarea>
+                                <% } %>
+                            </div>
+                            <div class="short-description">
+                                <label for="">Short Description</label>
+                                <% if (content.shortDescription) { %>
+                                    <textarea name="main_shortDescription<%= index+1 %>" id=""><%= content.shortDescription %></textarea>
+                                <% } else { %>
+                                    <textarea name="main_shortDescription1<%= index+1 %>" id=""></textarea>
+                                <% } %>
+                            </div>
+                            <div class="long-description">
+                                <label for="">Long Description</label>
+                                <% if (content.longDescription) { %>
+                                    <textarea name="main_longDescription<%= index+1 %>"><%= content.longDescription %></textarea>
+                                <% } else { %>
+                                    <textarea name="main_longDescription1<%= index+1 %>"></textarea> 
+                                <% } %>
+                            </div>
+                            <div class="page-location">
+                                <label for="">Page Location</label>
+                                <% if (content.pageLocation) { %>
+                                    <input type="text" name="main_pageLocation<%= index+1 %>" value="<%= content.pageLocation %>">
+                                <% } else { %>
+                                    <input type="text" name="main_pageLocation<%= index+1 %>"> 
+                                <% } %>
+                            </div>
+                            <div class="images-and-description">
+                                <label for="">Images</label>
+                                <div class="images">
+                                    <% for( let i = 0; i < content.imagePath.length; i++ ) { %>
+                                        <div class="image">
+                                            <label for="image-select-input" class="image-select" style="border: none;">
+                                                <i class='bx bx-cloud-upload' style="display: none;"></i>
+                                                <p class="message" style="display: none;">Upload Image</p>
+                                                <input type="file" name="main_images<%= index+1 %>" accept="image/*" class="image-select-input" id="image-select-input">
+                                                <img src="/<%= content.imagePath[i] %>" alt="">
+                                            </label>
+                                            <p class="image-description-title">Image Description</p>
+                                            <textarea name="main_imageDescription<%= index+1 %>" class="image-description"><%= content.imageDescription[i] %></textarea>
+                                        </div>
+                                    <% } %> 
+                                    <div class="add-more-main-image">
+                                        <p class="add-more-icon"><i class="fas fa-plus main-image"></i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% })%>
+
+                    
+                </div>
+                <div class="button"><button id="add-more-main-content" type="button">Add more content</button></div>
+
+
+                <!-- SUB MENUS AND ITS CONTENTS -->
+
+                <div class="sub-menus" id="sub-menus">
+                    <div class="sub-menus-title">Sub Menus</div>
+
+                    <% menu.subMenus.forEach((subMenu,smIndex) => { %>
+                        <div class="sub-menu">
+                            <div class="sub-menu-title-container">
+                                <p class="sub-menu-title">Sub Menu <%= smIndex+1 %></p>
+                                <i class="fas fa-angle-down"></i>
+                            </div>
+                            <div class="sub-menu-details sub-menu-hide">
+                                <div class="sub-menu-title-link">
+                                    <div class="name">
+                                        <label for="">Sub-Menu Name</label>
+                                        <% if (subMenu.name) { %>
+                                            <input type="text" name="subMenu_name<%= smIndex+1 %>" class="name-input" value="<%= subMenu.name %>"> 
+                                        <% } else { %>
+                                            <input type="text" name="subMenu_name<%= smIndex+1 %>" class="name-input">                                         
+                                        <% } %>
+                                    </div>
+                                    <div class="link">
+                                        <label for="">Sub-Menu Link</label>
+                                        <% if (subMenu.link) { %>
+                                            <input type="text" name="subMenu_link<%= smIndex+1 %>" class="link-input" value="<%= subMenu.link %>">
+                                        <% } else { %>
+                                            <input type="text" name="subMenu_link<%= smIndex+1 %>" class="link-input">                                         
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="sub-menu-contents">
+                                    <p class="sub-menu-contents-title">Contents</p>
+                                    <% subMenu.contents.forEach((content,cIndex) => { %>
+                                        <div class="sub-menu-content">
+                                            <div class="content-title-container">
+                                                <p class="content-title">Content <%= cIndex+1 %></p>
+                                            </div>
+                                            <div class="heading">
+                                                <label for="">Heading</label>
+                                                <% if (content.heading) { %>
+                                                    <textarea name="subMenu_content<%= smIndex+1 %>_heading<%= cIndex+1 %>"><%= content.heading %></textarea>
+                                                <% } else { %>
+                                                    <textarea name="subMenu_content<%= smIndex+1 %>_heading<%= cIndex+1 %>"></textarea>
+                                                <% } %>
+                                            </div>
+                                            <div class="sub-heading">
+                                                <label for="">Sub-Heading</label>
+                                                <% if (content.subHeading) { %>
+                                                    <textarea name="subMenu_content<%= smIndex+1 %>_subHeading<%= cIndex+1 %>"><%= content.subHeading %></textarea>
+                                                <% } else { %>
+                                                    <textarea name="subMenu_content<%= smIndex+1 %>_subHeading<%= cIndex+1 %>"></textarea>
+                                                <% } %>
+                                            </div>
+                                            <div class="short-description">
+                                                <label for="">Short Description</label>
+                                                <% if (content.shortDescription) { %>
+                                                    <textarea name="subMenu_content<%= smIndex+1 %>_shortDescription<%= cIndex+1 %>"><%= content.shortDescription %></textarea>
+                                                <% } else { %>
+                                                    <textarea name="subMenu_content<%= smIndex+1 %>_shortDescription<%= cIndex+1 %>"></textarea>
+                                                <% } %>
+                                            </div>
+                                            <div class="long-description">
+                                                <label for="">Long Description</label >
+                                                <% if (content.longDescription) { %>
+                                                    <textarea name="subMenu_content<%= smIndex+1 %>_longDescription<%= cIndex+1 %>"><%= content.longDescription %></textarea>
+                                                <% } else { %>
+                                                    <textarea name="subMenu_content<%= smIndex+1 %>_longDescription<%= cIndex+1 %>"></textarea>
+                                                <% } %>
+                                            </div>
+                                                <div class="page-location">
+                                                <label for="">Page Location</label>
+                                                <% if (content.pageLocation) { %>
+                                                    <input type="text" name="subMenu_content<%= smIndex+1 %>_pageLocation<%= cIndex+1 %>" value="<%= content.pageLocation %>">
+                                                <% } else { %>
+                                                    <input type="text" name="subMenu_content<%= smIndex+1 %>_pageLocation<%= cIndex+1 %>">
+                                                <% } %>
+                                            </div>
+                                            <div class="images-and-description">
+                                                <label for="">Images</label>
+                                                <div class="images">
+                                                    <% for( let i = 0; i < content.imagePath.length; i++ ) { %>
+                                                        <div class="image">
+                                                            <label for="image-select-input1" class="image-select">
+                                                                <i class='bx bx-cloud-upload'></i>
+                                                                <p class="message">Upload Image</p>
+                                                                <input type="file" name="subMenu_content<%= smIndex+1 %>_images<%= cIndex+1 %>" accept="image/*" class="image-select-input" id="image-select-input1">
+                                                                <img src="/<%= content.imagePath[i] %>" alt="" style="display: none;">
+                                                            </label>
+                                                            <p class="image-description-title">Image Description</p>
+                                                            <textarea name="subMenu_content<%= smIndex+1 %>_imageDescription<%= cIndex+1 %>" class="image-description"><%= content.imageDescription[i] %></textarea>
+                                                        </div>
+                                                    <% } %> 
+                                                    <div class="add-more-sub-image">
+                                                        <p class="add-more-icon"><i class="fas fa-plus sub-image"></i></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% }) %>
+                                    
+                                    <div class="button"><button class="add-more-submenu-content" type="button">Add more content</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+
+                    
+
+                    <div id="add-sub-menu">Add Sub Menu</div>
+                </div>
+
+                <div class="submit-btn"><input type="button" value="UPDATE MENU" id="update"></div>
+
+            </form>
+        </div>
+    </div>
+    
+    <script src="/js/contentForm/addMainMenuContents.js"></script>
+    <script src="/js/contentForm/showHideSubMenu.js"></script>
+    <script src="/js/contentForm/addSubMenu.js"></script>
+    <script src="/js/contentForm/addSubMenuContents.js"></script>
+    <script src="/js/contentForm/addMoreMainImage.js"></script>
+    <script src="/js/contentForm/addMoreSubImage.js"></script>
+    <script src="/js/contentForm/displaySelectedImage.js"></script>
+
+    <script>
+        document.getElementById("update").addEventListener("click",(e)=>{
+            e.preventDefault()
+            console.log(e.target)
+
+            //check if menu name and link is provided or not
+            const menuName = document.getElementById("menu-name")
+            const menuLink = document.getElementById("menu-link")
+            if(menuName.value === "" && menuLink.value === ""){
+                menuName.style.borderColor = "red"
+                menuName.style.boxShadow = "0px 0px 5px red"
+                menuLink.style.borderColor = "red"
+                menuLink.style.boxShadow = "0px 0px 5px red"
+                return false
+            }
+        
+            //check if menu/sub-menu name is provided but link not provided and vice-versa
+            const nameInputs = e.target.parentElement.parentElement.getElementsByClassName("name-input")
+            const linkInputs = e.target.parentElement.parentElement.getElementsByClassName("link-input")
+
+            for(let i=0;i<nameInputs.length;i++){
+                nameInputs[i].style.borderColor = "gainsboro"
+                nameInputs[i].style.boxShadow = "none"
+                linkInputs[i].style.borderColor = "gainsboro"
+                linkInputs[i].style.boxShadow = "none"
+            
+                if(nameInputs[i].value === "" && linkInputs[i].value !== ""){
+                    console.log("name input field is empty")
+                    nameInputs[i].style.borderColor = "red"
+                    nameInputs[i].style.boxShadow = "0px 0px 5px red"
+                    return false
+                }
+                if(nameInputs[i].value !== "" && linkInputs[i].value === ""){
+                    console.log("link input field is empty")
+                    linkInputs[i].style.borderColor = "red"
+                    linkInputs[i].style.boxShadow = "0px 0px 5px red"
+                    return false
+                }
+            }
+        
+            //handle if image provided but image description not provided
+            const imageDescriptions = e.target.parentElement.parentElement.getElementsByClassName("image-description")
+            for(let i=0;i<imageDescriptions.length;i++){
+                if(!imageDescriptions[i].disabled && imageDescriptions[i].value === ""){
+                    imageDescriptions[i].value = "No Description"
+                }
+            }
+
+            //handle update operation if every check pass
+            const formData = new FormData(document.getElementById("content-form"))
+            const url = `http://127.0.0.1:3000/api/v1/menu/<%= menu._id %>`
+            /* formData.forEach((value, key) => {
+              console.log(key, value);
+            }); */
+            axios.patch(url, formData , {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+              }
+            )
+            .then((response)=>{
+                if(response.status === 200){
+                    window.location.reload()
+                }
+            })
+            .catch((err)=>{
+                console.log("Error while updating the record")
+            })
+        })
+    </script>
+
+</body>
+</html>

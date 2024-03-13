@@ -2,8 +2,7 @@
 //DISPLAY SELECTED IMAGE
 document.body.addEventListener("change",(event)=>{
     if(event.target.classList.contains("image-select-input")){
-        console.log("image label clicked")
-        console.log(event.target)
+        
         event.target.previousElementSibling.previousElementSibling.style.display = "none"
         event.target.previousElementSibling.style.display = "none"
         event.target.parentElement.style.border = "none"
