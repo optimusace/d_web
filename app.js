@@ -36,7 +36,7 @@ const startServer = async()=>{
             console.log("Server started on port : ",process.env.PORT)
         })
     }catch(e){
-        console.log("Sorry!!! Cannot establish connection to the database")
+        console.log("Sorry! Database connection failed. Unable to start server.")
     }
 }
 startServer()

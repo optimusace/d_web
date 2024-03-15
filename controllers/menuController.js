@@ -162,9 +162,9 @@ const addMenu = (req,res)=>{
 
 //UPDATE MENU
 const updateMenu = async(req,res)=>{
-    //CREATING MENU OBJECT ON THE BASIS OF REQUEST
-    const menuObject = {}
+    //CREATING MENU OBJECT ON THE BASIS OF REQUEST  
     const id = req.params.id
+    const menuObject = {}
     const reqData = req.body
     const reqFiles = req.files
 
@@ -174,7 +174,6 @@ const updateMenu = async(req,res)=>{
     if(reqData.link){
         menuObject["link"] = reqData.link 
     }
-    
 
     //FIND THE TOTAL NUMBER OF MAIN MENU CONENTS
     let maxMainContent = null
@@ -290,18 +289,51 @@ const updateMenu = async(req,res)=>{
     }
     menuObject["subMenus"] = subMenus
 
-    console.log("Value before update : ",menuObject)
+    console.log("Value before update : ",menuObject) 
+
+    const updatedMenuObject = JSON.parse(req.body.updatedMenuObject)
+
+    //handling images and images description for main contents
+    for(let i=0;i<menuObject.contents.length;i++){
+        if(updatedMenuObject.contents[i]){
+            if(menuObject.contents[i].imagePath && updatedMenuObject.contents[i].imagePath){
+                menuObject.contents[i].imagePath = updatedMenuObject.contents[i].imagePath.concat(menuObject.contents[i].imagePath)
+                menuObject.contents[i].imageDescription = updatedMenuObject.contents[i].imageDescription.concat(menuObject.contents[i].imageDescription)
+            }else if(!menuObject.contents[i].imagePath && updatedMenuObject.contents[i].imagePath){
+                menuObject.contents[i].imagePath = updatedMenuObject.contents[i].imagePath
+                menuObject.contents[i].imageDescription = updatedMenuObject.contents[i].imageDescription
+            }
+        }
+    }
+
+    //handling images and images description for submenu 
+    for(let i=0;i<menuObject.subMenus.length;i++){
+        for(let j=0;j<menuObject.subMenus[i].contents.length;j++){
+            if(updatedMenuObject.subMenus[i] && updatedMenuObject.subMenus[i].contents[j]){
+                if(menuObject.subMenus[i].contents[j].imagePath && updatedMenuObject.subMenus[i].contents[j].imagePath){
+                    menuObject.subMenus[i].contents[j].imagePath = updatedMenuObject.subMenus[i].contents[j].imagePath.concat(menuObject.subMenus[i].contents[j].imagePath)
+                    menuObject.subMenus[i].contents[j].imageDescription = updatedMenuObject.subMenus[i].contents[j].imageDescription.concat(menuObject.subMenus[i].contents[j].imageDescription)
+                }
+                else if(!menuObject.subMenus[i].contents[j].imagePath && updatedMenuObject.subMenus[i].contents[j].imagePath){
+                    menuObject.subMenus[i].contents[j].imagePath = updatedMenuObject.subMenus[i].contents[j].imagePath
+                    menuObject.subMenus[i].contents[j].imageDescription = updatedMenuObject.subMenus[i].contents[j].imageDescription
+                }
+            }
+        }
+    }
+
+    console.log("Value after chaing menu object : ", menuObject)
+
 
     try{
-        const updatedMenu = await Menu.findByIdAndUpdate(id, { $set: menuObject  }, { new: true });
+        const updatedMenu = await Menu.findByIdAndUpdate(id,menuObject,{new:true})
         if(!updatedMenu){
             return res.status(404).json({success:false,message:"Cannot update menu"})
         }
-        console.log("Menu after update is : ",updatedMenu)
-        res.status(200).json({success:false,message:"Successfully updated menu",redirect:"/menu-details"})    
+        res.status(200).json({success:true,message:"Successfully updated menu",redirect:"/menu-details"})    
     }catch(err){
         res.status(500).json({success:false,message:"Internal Server Error",error:err.message})
-    } 
+    }  
 }
 
 //DELETE MENU

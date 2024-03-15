@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="content">
-        <p class="content-header">Add menu, link and its contents</p>
+        <p class="content-header">Update menu</p>
         <div class="content-form">
             <form enctype="multipart/form-data" id="content-form">
 
@@ -93,14 +93,15 @@
                                 <div class="images">
                                     <% for( let i = 0; i < content.imagePath.length; i++ ) { %>
                                         <div class="image">
-                                            <label for="image-select-input" class="image-select" style="border: none;">
-                                                <i class='bx bx-cloud-upload' style="display: none;"></i>
+                                            <label for="" class="image-select" style="border: none;">
+                                                <i class='bx bx-cloud-upload upload' style="display: none;"></i>
                                                 <p class="message" style="display: none;">Upload Image</p>
                                                 <input type="file" name="main_images<%= index+1 %>" accept="image/*" class="image-select-input" id="image-select-input">
                                                 <img src="/<%= content.imagePath[i] %>" alt="">
+                                                <i class="fas fa-trash delete" onclick="deleteMainContentImage('<%= index %>','<%= i %>')"></i>
                                             </label>
                                             <p class="image-description-title">Image Description</p>
-                                            <textarea name="main_imageDescription<%= index+1 %>" class="image-description"><%= content.imageDescription[i] %></textarea>
+                                            <textarea name="main_imageDescription<%= index+1 %>" class="image-description" style="background-color: white;" disabled><%= content.imageDescription[i] %></textarea>
                                         </div>
                                     <% } %> 
                                     <div class="add-more-main-image">
@@ -198,14 +199,15 @@
                                                 <div class="images">
                                                     <% for( let i = 0; i < content.imagePath.length; i++ ) { %>
                                                         <div class="image">
-                                                            <label for="image-select-input1" class="image-select">
-                                                                <i class='bx bx-cloud-upload'></i>
+                                                            <label for="" class="image-select">
+                                                                <i class='bx bx-cloud-upload upload'></i>
                                                                 <p class="message">Upload Image</p>
                                                                 <input type="file" name="subMenu_content<%= smIndex+1 %>_images<%= cIndex+1 %>" accept="image/*" class="image-select-input" id="image-select-input1">
                                                                 <img src="/<%= content.imagePath[i] %>" alt="" style="display: none;">
+                                                                <i class="fas fa-trash delete" onclick="deleteSubMenuContentImage('<%= smIndex %>','<%= cIndex %>','<%= i %>')"></i>
                                                             </label>
                                                             <p class="image-description-title">Image Description</p>
-                                                            <textarea name="subMenu_content<%= smIndex+1 %>_imageDescription<%= cIndex+1 %>" class="image-description"><%= content.imageDescription[i] %></textarea>
+                                                            <textarea name="subMenu_content<%= smIndex+1 %>_imageDescription<%= cIndex+1 %>" class="image-description" style="background-color: white;" disabled><%= content.imageDescription[i] %></textarea>
                                                         </div>
                                                     <% } %> 
                                                     <div class="add-more-sub-image">
@@ -227,7 +229,7 @@
                     <div id="add-sub-menu">Add Sub Menu</div>
                 </div>
 
-                <div class="submit-btn"><input type="button" value="UPDATE MENU" id="update"></div>
+                <div class="submit-btn"><input type="button" value="UPDATE MENU" id="updateBtn"></div>
 
             </form>
         </div>
@@ -242,9 +244,33 @@
     <script src="/js/contentForm/displaySelectedImage.js"></script>
 
     <script>
-        document.getElementById("update").addEventListener("click",(e)=>{
+        //below functions will be used to delete the value of the path and corresponding description in the menu object    
+        const menuObject = <%- JSON.stringify(menu) %>
+
+        function deleteMainContentImage(cIndex,imgIndex){
+            const content = menuObject.contents[cIndex]
+            content.imagePath.splice(imgIndex,1)
+            content.imageDescription.splice(imgIndex,1)
+        }
+
+        function deleteSubMenuContentImage(smIndex,cIndex,imgIndex){
+            const content = menuObject.subMenus[smIndex].contents[cIndex]
+            content.imagePath.splice(imgIndex,1)
+            content.imageDescription.splice(imgIndex,1)
+        }
+
+        //below script will be used to delete the parent of the associated image
+        document.body.addEventListener("click",(e)=>{
+            if(e.target.classList.contains("delete")){
+                console.log("delete icon clicked for the image to be deleted")
+                e.target.parentElement.parentElement.remove()
+            }
+        })
+    </script>
+
+    <script>
+        document.getElementById("updateBtn").addEventListener("click",(e)=>{
             e.preventDefault()
-            console.log(e.target)
 
             //check if menu name and link is provided or not
             const menuName = document.getElementById("menu-name")
@@ -291,19 +317,21 @@
 
             //handle update operation if every check pass
             const formData = new FormData(document.getElementById("content-form"))
+            formData.append("updatedMenuObject",JSON.stringify(menuObject))
             const url = `http://127.0.0.1:3000/api/v1/menu/<%= menu._id %>`
-            /* formData.forEach((value, key) => {
-              console.log(key, value);
-            }); */
-            axios.patch(url, formData , {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
+            
+            axios.put(
+                url, 
+                formData ,
+                {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
                 }
-              }
-            )
+            ) 
             .then((response)=>{
                 if(response.status === 200){
-                    window.location.reload()
+                    window.location.href = response.data.redirect
                 }
             })
             .catch((err)=>{

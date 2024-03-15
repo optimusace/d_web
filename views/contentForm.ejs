@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="content">
-        <p class="content-header">Add menu, link and its contents</p>
+        <p class="content-header">Create Menu</p>
         <div class="content-form">
             <form method="POST" action="/api/v1/menu" enctype="multipart/form-data" id="content-form">
 
@@ -60,10 +60,11 @@
                             <div class="images">
                                 <div class="image">
                                     <label for="image-select-input" class="image-select">
-                                        <i class='bx bx-cloud-upload'></i>
+                                        <i class='bx bx-cloud-upload upload'></i>
                                         <p class="message">Upload Image</p>
                                         <input type="file" name="main_images1" accept="image/*" class="image-select-input" id="image-select-input">
                                         <img src="" alt="" style="display: none;">
+                                        <i class="fas fa-trash delete" style="display: none;"></i>
                                     </label>
                                     <p class="image-description-title">Image Description</p>
                                     <textarea name="main_imageDescription1" class="image-description" disabled="true"></textarea>
@@ -129,10 +130,11 @@
                                         <div class="images">
                                             <div class="image">
                                                 <label for="image-select-input1" class="image-select">
-                                                    <i class='bx bx-cloud-upload'></i>
+                                                    <i class='bx bx-cloud-upload upload'></i>
                                                     <p class="message">Upload Image</p>
                                                     <input type="file" name="subMenu_content1_images1" accept="image/*" class="image-select-input" id="image-select-input1">
                                                     <img src="" alt="" style="display: none;">
+                                                    <i class="fas fa-trash delete" style="display: none;"></i>
                                                 </label>
                                                 <p class="image-description-title">Image Description</p>
                                                 <textarea name="subMenu_content1_imageDescription1" class="image-description" disabled="true"></textarea>
@@ -166,6 +168,16 @@
     <script src="/js/contentForm/addMoreMainImage.js"></script>
     <script src="/js/contentForm/addMoreSubImage.js"></script>
     <script src="/js/contentForm/displaySelectedImage.js"></script>
+
+    <script>
+        //below script will be used to delete the parent of the associated image
+        document.body.addEventListener("click",(e)=>{
+            if(e.target.classList.contains("delete")){
+                console.log("delete icon clicked for the image to be deleted")
+                e.target.parentElement.parentElement.remove()
+            }
+        })
+    </script>
 
 </body>
 </html>

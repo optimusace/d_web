@@ -22,6 +22,7 @@ document.body.addEventListener("click",(event)=>{
         const uploadIcon = document.createElement("i")
         uploadIcon.classList.add("bx")
         uploadIcon.classList.add("bx-cloud-upload")
+        uploadIcon.classList.add("upload")
 
         const para = document.createElement("p")
         para.classList.add("message")
@@ -37,10 +38,16 @@ document.body.addEventListener("click",(event)=>{
         displayImg.style.display = "none"
         displayImg.src = ""
 
+        const deleteIcon = document.createElement("i")
+        deleteIcon.classList.add("fas")
+        deleteIcon.classList.add("fa-trash")
+        deleteIcon.classList.add("delete")
+        deleteIcon.style.display = "none"
+
         const labelImg = document.createElement("label")
         labelImg.for = "image-select-input"
         labelImg.classList.add("image-select")
-        labelImg.append(uploadIcon,para,input,displayImg)
+        labelImg.append(uploadIcon,para,input,displayImg,deleteIcon)
 
         const paraImgDesc = document.createElement("p")
         paraImgDesc.classList.add("image-description-title")

@@ -15,6 +15,8 @@ body{
 .content-header{
     font-size: 30px;
     text-align: center;
+    text-transform: uppercase;
+    word-spacing: 8px;
     font-weight: bold;
     user-select: none;
 }
@@ -133,6 +135,7 @@ textarea{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 .image .image-select input{
     display: none;
@@ -148,12 +151,28 @@ textarea{
 .image .image-select img:hover{
     transform: scale(1.1);
 }
-.image .image-select i{
+.image .image-select i.upload{
     color: var(--color5);
     width: 150px;
     font-size: 80px;
     text-align: center;
     margin: 0px;
+}
+.image .image-select i.delete{
+    color: var(--color3);
+    position: absolute;
+    top: 120px;
+    left: 140px;
+    font-size: 12px;
+    padding: 5px;
+    border: 2px dashed var(--color5);
+    border-radius: 50%;
+    transition: 0.3s;
+}
+.image .image-select i.delete:hover{
+    color: var(--color4);
+    background-color: var(--color3);
+    border-color: var(--color4);
 }
 .image .image-select p{
     margin: 0px;
@@ -302,7 +321,7 @@ textarea{
     display: flex;
     justify-content: center;
 }
-input[type="submit"]{
+input[type="submit"],#updateBtn{
     bottom: 20px;
     border: 2px solid var(--color5);
     background-color: var(--color1);
@@ -316,7 +335,7 @@ input[type="submit"]{
     position: absolute;
     top: 65px;
 }
-input[type="submit"]:hover{
+input[type="submit"]:hover,#updateBtn:hover{
     background-color: var(--color2);
     border-color: var(--color5);
     width: 300px;
