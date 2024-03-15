@@ -61,7 +61,7 @@
                                 <% if (content.subHeading) { %>
                                     <textarea name="main_subHeading<%= index+1 %>" id=""><%= content.subHeading %></textarea>
                                 <% } else { %>
-                                    <textarea name="main_subHeading1<%= index+1 %>" id=""></textarea>
+                                    <textarea name="main_subHeading<%= index+1 %>" id=""></textarea>
                                 <% } %>
                             </div>
                             <div class="short-description">
@@ -69,7 +69,7 @@
                                 <% if (content.shortDescription) { %>
                                     <textarea name="main_shortDescription<%= index+1 %>" id=""><%= content.shortDescription %></textarea>
                                 <% } else { %>
-                                    <textarea name="main_shortDescription1<%= index+1 %>" id=""></textarea>
+                                    <textarea name="main_shortDescription<%= index+1 %>" id=""></textarea>
                                 <% } %>
                             </div>
                             <div class="long-description">
@@ -77,7 +77,7 @@
                                 <% if (content.longDescription) { %>
                                     <textarea name="main_longDescription<%= index+1 %>"><%= content.longDescription %></textarea>
                                 <% } else { %>
-                                    <textarea name="main_longDescription1<%= index+1 %>"></textarea> 
+                                    <textarea name="main_longDescription<%= index+1 %>"></textarea> 
                                 <% } %>
                             </div>
                             <div class="page-location">
@@ -199,11 +199,11 @@
                                                 <div class="images">
                                                     <% for( let i = 0; i < content.imagePath.length; i++ ) { %>
                                                         <div class="image">
-                                                            <label for="" class="image-select">
-                                                                <i class='bx bx-cloud-upload upload'></i>
-                                                                <p class="message">Upload Image</p>
+                                                            <label for="" class="image-select" style="border: none;">
+                                                                <i class='bx bx-cloud-upload upload' style="display: none;"></i>
+                                                                <p class="message" style="display: none;">Upload Image</p>
                                                                 <input type="file" name="subMenu_content<%= smIndex+1 %>_images<%= cIndex+1 %>" accept="image/*" class="image-select-input" id="image-select-input1">
-                                                                <img src="/<%= content.imagePath[i] %>" alt="" style="display: none;">
+                                                                <img src="/<%= content.imagePath[i] %>" alt="">
                                                                 <i class="fas fa-trash delete" onclick="deleteSubMenuContentImage('<%= smIndex %>','<%= cIndex %>','<%= i %>')"></i>
                                                             </label>
                                                             <p class="image-description-title">Image Description</p>
@@ -242,6 +242,8 @@
     <script src="/js/contentForm/addMoreMainImage.js"></script>
     <script src="/js/contentForm/addMoreSubImage.js"></script>
     <script src="/js/contentForm/displaySelectedImage.js"></script>
+    <script src="/js/contentForm/deleteImage.js"></script>
+
 
     <script>
         //below functions will be used to delete the value of the path and corresponding description in the menu object    
@@ -257,21 +259,12 @@
             const content = menuObject.subMenus[smIndex].contents[cIndex]
             content.imagePath.splice(imgIndex,1)
             content.imageDescription.splice(imgIndex,1)
-        }
+        } 
 
-        //below script will be used to delete the parent of the associated image
-        document.body.addEventListener("click",(e)=>{
-            if(e.target.classList.contains("delete")){
-                console.log("delete icon clicked for the image to be deleted")
-                e.target.parentElement.parentElement.remove()
-            }
-        })
-    </script>
-
-    <script>
+        //script to handle form and update menu when update button is clicked
         document.getElementById("updateBtn").addEventListener("click",(e)=>{
             e.preventDefault()
-
+        
             //check if menu name and link is provided or not
             const menuName = document.getElementById("menu-name")
             const menuLink = document.getElementById("menu-link")
@@ -286,7 +279,7 @@
             //check if menu/sub-menu name is provided but link not provided and vice-versa
             const nameInputs = e.target.parentElement.parentElement.getElementsByClassName("name-input")
             const linkInputs = e.target.parentElement.parentElement.getElementsByClassName("link-input")
-
+        
             for(let i=0;i<nameInputs.length;i++){
                 nameInputs[i].style.borderColor = "gainsboro"
                 nameInputs[i].style.boxShadow = "none"
@@ -314,12 +307,12 @@
                     imageDescriptions[i].value = "No Description"
                 }
             }
-
+        
             //handle update operation if every check pass
             const formData = new FormData(document.getElementById("content-form"))
             formData.append("updatedMenuObject",JSON.stringify(menuObject))
             const url = `http://127.0.0.1:3000/api/v1/menu/<%= menu._id %>`
-            
+
             axios.put(
                 url, 
                 formData ,

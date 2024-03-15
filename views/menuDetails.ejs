@@ -71,6 +71,7 @@
         const subMenuDeletes = document.getElementsByClassName("delete-submenu")
         for(let i=0;i<subMenuDeletes.length;i++){
             subMenuDeletes[i].addEventListener("click",(e)=>{
+                console.log("delete sub menu clicked")
                 const mainId = subMenuDeletes[i].dataset.mainId
                 const subMenuId = subMenuDeletes[i].dataset.subMenuId
                 //const url = `http://127.0.0.1:3000/delete-sub-menu/${mainId}/${subMenuId}`

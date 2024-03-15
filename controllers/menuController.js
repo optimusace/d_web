@@ -14,6 +14,7 @@ const getMenu = async (req,res)=>{
     }
 }
 
+
 //ADD MENU
 const addMenu = (req,res)=>{
     
@@ -148,7 +149,7 @@ const addMenu = (req,res)=>{
     }
     menuObject["subMenus"] = subMenus
 
-    //SAVE MENU OBJECT IN THE DATABASE
+    //create new menu in database
     Menu.create(menuObject)
     .then((savedMenu)=>{
         //res.status(201).json({success:true,message:"Menu created successfully",data:savedMenu})
@@ -159,6 +160,7 @@ const addMenu = (req,res)=>{
         res.status(500).json({success:false,message:"Error while saving menu to the database",error:err})
     })
 }
+
 
 //UPDATE MENU
 const updateMenu = async(req,res)=>{
@@ -185,7 +187,6 @@ const updateMenu = async(req,res)=>{
             }
         }
     }
-    
     //CREATE A ARRAY OF MAIN CONTENTS
     const mainContents = []
     for(let i=1;i<=maxMainContent;i++){
@@ -289,8 +290,7 @@ const updateMenu = async(req,res)=>{
     }
     menuObject["subMenus"] = subMenus
 
-    console.log("Value before update : ",menuObject) 
-
+    //use updated menu object received from the client to handle the image and image description for main contents and sub menu
     const updatedMenuObject = JSON.parse(req.body.updatedMenuObject)
 
     //handling images and images description for main contents
@@ -322,9 +322,7 @@ const updateMenu = async(req,res)=>{
         }
     }
 
-    console.log("Value after chaing menu object : ", menuObject)
-
-
+    //update menu in database
     try{
         const updatedMenu = await Menu.findByIdAndUpdate(id,menuObject,{new:true})
         if(!updatedMenu){
@@ -335,6 +333,7 @@ const updateMenu = async(req,res)=>{
         res.status(500).json({success:false,message:"Internal Server Error",error:err.message})
     }  
 }
+
 
 //DELETE MENU
 const deleteMenu = async (req,res)=>{
@@ -348,6 +347,7 @@ const deleteMenu = async (req,res)=>{
         res.status(500).json({success:false,message:"Internal Server Error"})
     }
 }
+
 
 //DELETE SUB MENU
 const deleteSubMenu = async(req,res)=>{

@@ -168,16 +168,7 @@
     <script src="/js/contentForm/addMoreMainImage.js"></script>
     <script src="/js/contentForm/addMoreSubImage.js"></script>
     <script src="/js/contentForm/displaySelectedImage.js"></script>
-
-    <script>
-        //below script will be used to delete the parent of the associated image
-        document.body.addEventListener("click",(e)=>{
-            if(e.target.classList.contains("delete")){
-                console.log("delete icon clicked for the image to be deleted")
-                e.target.parentElement.parentElement.remove()
-            }
-        })
-    </script>
+    <script src="/js/contentForm/deleteImage.js"></script>
 
 </body>
 </html>

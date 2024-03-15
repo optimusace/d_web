@@ -1,5 +1,9 @@
 const mongoose = require("mongoose")
 
+const contentSchema = new mongoose.Schema({
+    
+})
+
 const menuSchema = new mongoose.Schema({
     name:String,
     link:String,
