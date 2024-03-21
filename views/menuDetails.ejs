@@ -12,7 +12,7 @@
     <div class="contents">
         <p class="title">Menu Details</p>
         <div class="details">
-            <% menu.forEach((menuItem)=>{   %>
+            <% menus.forEach((menuItem)=>{   %>
                 <div class="detail">
                     <div class="main-detail">
                         <div class="name-link">
@@ -54,8 +54,8 @@
         for(let i=0;i<mainDeletes.length;i++){
             mainDeletes[i].addEventListener("click",(e)=>{
                 const id = mainDeletes[i].dataset.id 
-                //const url = `http://127.0.0.1:3000/delete-menu/${id}`
-                const url = `https://dweb-wq2k.onrender.com/api/v1/menu/delete-menu/${id}`
+                const url = `http://127.0.0.1:3000/api/menu/delete-menu/${id}`
+                //const url = `https://dweb-wq2k.onrender.com/api/v1/menu/delete-menu/${id}`
                 axios.delete(url)
                 .then((response)=>{
                     if(response.status === 200){
@@ -74,8 +74,8 @@
                 console.log("delete sub menu clicked")
                 const mainId = subMenuDeletes[i].dataset.mainId
                 const subMenuId = subMenuDeletes[i].dataset.subMenuId
-                //const url = `http://127.0.0.1:3000/delete-sub-menu/${mainId}/${subMenuId}`
-                const url = `https://dweb-wq2k.onrender.com/api/v1/menu/delete-sub-menu/${mainId}/${subMenuId}`
+                const url = `http://127.0.0.1:3000/api/menu/delete-sub-menu/${mainId}/${subMenuId}`
+                //const url = `https://dweb-wq2k.onrender.com/api/v1/menu/delete-sub-menu/${mainId}/${subMenuId}`
                 axios.delete(url)
                 .then((response)=>{
                     if(response.status === 200){

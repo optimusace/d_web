@@ -311,7 +311,7 @@
             //handle update operation if every check pass
             const formData = new FormData(document.getElementById("content-form"))
             formData.append("updatedMenuObject",JSON.stringify(menuObject))
-            const url = `http://127.0.0.1:3000/api/v1/menu/<%= menu._id %>`
+            const url = `http://127.0.0.1:3000/api/menu/<%= menu._id %>`
 
             axios.put(
                 url, 

@@ -6,6 +6,7 @@ const connectDB = async(connectionString)=>{
         console.log("Successfully established connection to database")
         return mongooseInstance
     }catch(e){
+        console.log(e)
         console.log("Error connecting to database : ",e.message)
         throw e
     }

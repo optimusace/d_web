@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNUP</title>
+    <link rel="stylesheet" href="/css/signup.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="form-container">
+        <form class="form" id="form">
+            <p class="form-title">SIGNUP</p>
+            <div class="input name">
+                <label>Name</label>
+                <input type="text" name="name">
+                <p class="error" id="name-error"></p>
+            </div>
+            <div class="input email">
+                <label>Email</label>
+                <input type="text" name="email">
+                <p class="error" id="email-error"></p>
+            </div>
+            <div class="input password">
+                <label>Password</label>
+                <input type="text" name="password">
+                <p class="error" id="password-error"></p>
+            </div>
+            <button id="btn">REGISTER</button>
+        </form>
+    </div>
+    <script src="/js/authenticationForm/handleSignup.js"></script>
+</body>
+</html>

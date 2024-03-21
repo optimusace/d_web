@@ -7,10 +7,12 @@ const contentRoutes = require("./routes/contentRoutes")
 const renderRoutes = require("./routes/renderRoutes")
 const authRoutes = require("./routes/authRoutes")
 const cors = require("cors")
+const cookieParser = require("cookie-parser")
 
 const app = express() 
 
 app.use(cors())
+app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(express.static("public"))
@@ -20,10 +22,10 @@ app.set("view engine","ejs")
 app.set("views","./views")
 
 //ROUTES
-app.use(renderRoutes)
 app.use("/user",authRoutes)
-app.use("api/v1/member",memberRoutes)
-app.use("/api/v1/menu",menuRoutes)
+app.use("/api/member",memberRoutes)
+app.use("/api/menu",menuRoutes)
+app.use(renderRoutes)
 app.use(contentRoutes)
 
 //HANDLE 404 REQUEST

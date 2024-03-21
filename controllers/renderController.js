@@ -6,8 +6,8 @@ const viewMenuContentForm = (req,res)=>{
 
 const getMenuDetails = async (req,res)=>{
     try{
-        const menu = await Menu.find()
-        res.render("menuDetails",{menu,checkValue:"check"})
+        const menus = await Menu.find({userId:req.user.id})
+        res.render("menuDetails",{menus:menus}) 
     }catch(err){
         res.status(500).json({success:false,message:"Internal Server Error"})
     }

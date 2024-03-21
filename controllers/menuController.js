@@ -3,7 +3,8 @@ const Menu = require("../models/menu")
 //GET ALL MENU
 const getMenu = async (req,res)=>{
     try{
-        const menu = await Menu.find()
+        const id = req.params.userId || req.user.id
+        const menu = await Menu.findOne({userId:id})
         if(menu.length > 0){
             res.status(200).json({success:true,data:menu})
         }else{
@@ -16,18 +17,14 @@ const getMenu = async (req,res)=>{
 
 
 //ADD MENU
-const addMenu = (req,res)=>{
-    
-    //CHECK IF THERE ARE DATA ON THE REQUEST
-    if(Object.keys(req.body).length === 0){
-        return res.status(400).json({success:false,message:"Invalid request body"})
-    }
-
+const addMenu = async (req,res)=>{
     //CREATING MENU OBJECT ON THE BASIS OF REQUEST
     const menuObject = {}
 
     const reqData = req.body
     const reqFiles = req.files
+
+    menuObject["userId"] = req.user.id
 
     if (reqData.name){
         menuObject["name"] = reqData.name
@@ -149,18 +146,14 @@ const addMenu = (req,res)=>{
     }
     menuObject["subMenus"] = subMenus
 
-    //create new menu in database
-    Menu.create(menuObject)
-    .then((savedMenu)=>{
-        //res.status(201).json({success:true,message:"Menu created successfully",data:savedMenu})
+    try{
+        const newMenu = await Menu.create(menuObject)
         res.redirect("/menu-details")
-    })
-    .catch((err)=>{
-        console.log(err.message)
-        res.status(500).json({success:false,message:"Error while saving menu to the database",error:err})
-    })
+        //res.status(201).json({success:true,message:"menu created successfully",data:newMenu})
+    }catch(err){
+        res.status(500).json({success:false,message:"Unable to create menu",error:err.message})
+    }
 }
-
 
 //UPDATE MENU
 const updateMenu = async(req,res)=>{

@@ -1,10 +1,7 @@
 const mongoose = require("mongoose")
 
-const contentSchema = new mongoose.Schema({
-    
-})
-
 const menuSchema = new mongoose.Schema({
+    userId:mongoose.Schema.Types.ObjectId,
     name:String,
     link:String,
     contents:[{
