@@ -12,7 +12,7 @@ btn.addEventListener("click",(e)=>{
         email:form.email.value,
         password:form.password.value
     }
-    const endpoint = "http://127.0.0.1:3000/user/signup"
+    const endpoint = "https://d-web-web.onrender.com/user/signup"
     axios.post(endpoint,data,{
         headers:{
             "Content-Type":"application/json"
