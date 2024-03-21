@@ -5,6 +5,7 @@ const memberRoutes = require("./routes/memberRoutes")
 const menuRoutes = require("./routes/menuRoutes")
 const contentRoutes = require("./routes/contentRoutes")
 const renderRoutes = require("./routes/renderRoutes")
+const authRoutes = require("./routes/authRoutes")
 const cors = require("cors")
 
 const app = express() 
@@ -20,6 +21,7 @@ app.set("views","./views")
 
 //ROUTES
 app.use(renderRoutes)
+app.use("/user",authRoutes)
 app.use("api/v1/member",memberRoutes)
 app.use("/api/v1/menu",menuRoutes)
 app.use(contentRoutes)
