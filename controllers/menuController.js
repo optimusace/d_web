@@ -3,13 +3,9 @@ const Menu = require("../models/menu")
 //GET ALL MENU
 const getMenu = async (req,res)=>{
     try{
-        const id = req.params.userId || req.user.id
-        const menu = await Menu.findOne({userId:id})
-        if(menu.length > 0){
-            res.status(200).json({success:true,data:menu})
-        }else{
-            res.status(404).json({success:false,message:"No menu found"})
-        }
+        const id = req.params.userId
+        const menu = await Menu.find({userId:id})
+        res.status(201).json({success:false,message:"Successfully retrieved menus",data:menu})
     }catch(err){
         res.status(500).json({success:false,message:"Internal Server Error"})
     }
